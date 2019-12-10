@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSVHelper.cs" />
+    <Compile Include="Factor.cs" />
     <Compile Include="KNN.cs" />
     <Compile Include="KNNPredictor.cs">
       <SubType>Form</SubType>
