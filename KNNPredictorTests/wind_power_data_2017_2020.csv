@@ -1,0 +1,4 @@
+Serial_number,Date_time,Attr1,Attr2
+R1,##,0.8,-1
+R2,##,-1,0
+R3,##,45.5,45.5

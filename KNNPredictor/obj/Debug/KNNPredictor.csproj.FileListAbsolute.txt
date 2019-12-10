@@ -1,0 +1,10 @@
+E:\Study\人工智慧\作業\KNN\KNNPredictor\KNNPredictor\bin\Debug\KNNPredictor.exe.config
+E:\Study\人工智慧\作業\KNN\KNNPredictor\KNNPredictor\bin\Debug\KNNPredictor.exe
+E:\Study\人工智慧\作業\KNN\KNNPredictor\KNNPredictor\bin\Debug\KNNPredictor.pdb
+E:\Study\人工智慧\作業\KNN\KNNPredictor\KNNPredictor\obj\Debug\KNNPredictor.csprojAssemblyReference.cache
+E:\Study\人工智慧\作業\KNN\KNNPredictor\KNNPredictor\obj\Debug\KNNPredictor.KNNPredictor.resources
+E:\Study\人工智慧\作業\KNN\KNNPredictor\KNNPredictor\obj\Debug\KNNPredictor.Properties.Resources.resources
+E:\Study\人工智慧\作業\KNN\KNNPredictor\KNNPredictor\obj\Debug\KNNPredictor.csproj.GenerateResource.cache
+E:\Study\人工智慧\作業\KNN\KNNPredictor\KNNPredictor\obj\Debug\KNNPredictor.csproj.CoreCompileInputs.cache
+E:\Study\人工智慧\作業\KNN\KNNPredictor\KNNPredictor\obj\Debug\KNNPredictor.exe
+E:\Study\人工智慧\作業\KNN\KNNPredictor\KNNPredictor\obj\Debug\KNNPredictor.pdb
