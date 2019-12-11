@@ -93,7 +93,9 @@ namespace KNNPredictor
 
         private void PredictPitch()
         {
-            double predictPitch = _knnService.Predict();
+            double wind = double.Parse(_windTextBox.Text);
+            double power = double.Parse(_powerTextBox.Text);
+            double predictPitch = _knnService.Predict(wind, power);
             _pitchLabel.Text = PITCH_TEXT + predictPitch.ToString();
         }
         #endregion

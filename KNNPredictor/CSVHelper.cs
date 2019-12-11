@@ -51,7 +51,33 @@ namespace KNNPredictor
             return !unnecessaryRowNames.Contains(row[0]);
         }
 
-        public double[] GetColumnDatas(string columnName)
+        public void ClearNARows(params string[] attrs)
+        {
+            List<string> necessaryRows = new List<string>();
+            necessaryRows.Add(_lines[0]);
+
+            for (int rowNum = 0; rowNum < _lines.Length; rowNum++)
+            {
+                string[] row = GetRow(rowNum);
+                if (!IsRowHasNA(attrs, row))
+                    necessaryRows.Add(_lines[rowNum]);
+            }
+
+            _lines = necessaryRows.ToArray();
+        }
+
+        private bool IsRowHasNA(string[] attrs, string[] row)
+        {
+            foreach (string attr in attrs)
+            {
+                int attrOrder = GetColumnNumWithName(attr);
+                if (!IsDouble(row[attrOrder]))
+                    return true;
+            }
+            return false;
+        }
+
+        public List<double> GetColumnDatas(string columnName)
         {
             int order = GetColumnNumWithName(columnName);
             string[] datas = GetColumnDatasWithOrder(order);
@@ -102,27 +128,24 @@ namespace KNNPredictor
             return row;
         }
 
-        private double[] TransformColumnFromStringToDouble(string[] stringDatas)
+        private List<double> TransformColumnFromStringToDouble(string[] stringDatas)
         {
             int dataLength = stringDatas.Length;
-            double[] datas = new double[dataLength];
+            List<double> datas = new List<double>();
             for (int rowNum = 0; rowNum < dataLength; rowNum++)
             {
-                datas[rowNum] = TryParseStringToDouble(stringDatas[rowNum]);
+                if (IsDouble(stringDatas[rowNum]))
+                {
+                    datas.Add(double.Parse(stringDatas[rowNum]));
+                }
             }
             return datas;
         }
 
-        public double TryParseStringToDouble(string num)
+        private bool IsDouble(string str)
         {
-            try
-            {
-                return double.Parse(num);
-            }
-            catch
-            {
-                throw new Exception("Can't parse " + num + " to double.");
-            }
+            double temp = 0;
+            return double.TryParse(str, out temp);
         }
 
         private void HandleCSVIsOpen()
