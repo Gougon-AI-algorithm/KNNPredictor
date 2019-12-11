@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,35 +11,29 @@ namespace KNNPredictor
     {
         CSVHelper _csvHelper = null;
 
-        Factor[] _factors = null;
+        List<Factor> _factors = null;
 
         public KNN(string filePath)
         {
             _csvHelper = new CSVHelper(filePath);
             _csvHelper.ClearUnnecessaryRows("R80711", "R80736");
+            if (_factors != null)
+                _factors.Clear();
         }
 
-        public void DecideFactors(string wsFactor, string pFactor)
+        public void DecideFactors(string wsFactor, string pFactor, string baFactor)
         {
-            double[] winds = _csvHelper.GetColumnDatas(wsFactor);
-            double[] powers = _csvHelper.GetColumnDatas(pFactor);
-            if (_factors == null)
-                _factors = new Factor[winds.Length];
-            for (int rowNum = 0; rowNum < winds.Length; rowNum++)
+            _csvHelper.ClearNARows(wsFactor, pFactor, baFactor);
+            List<double> winds = _csvHelper.GetColumnDatas(wsFactor);
+            List<double> powers = _csvHelper.GetColumnDatas(pFactor);
+            List<double> pitches = _csvHelper.GetColumnDatas(baFactor);
+            _factors = new List<Factor>();
+            for (int rowNum = 0; rowNum < winds.Count; rowNum++)
             {
-                _factors[rowNum]._wind = winds[rowNum];
-                _factors[rowNum]._power = powers[rowNum];
-            }
-        }
-
-        public void DecidePredicted(string baFactor)
-        {
-            double[] pitches = _csvHelper.GetColumnDatas(baFactor);
-            if (_factors == null)
-                _factors = new Factor[pitches.Length];
-            for (int rowNum = 0; rowNum < pitches.Length; rowNum++)
-            {
-                _factors[rowNum]._power = pitches[rowNum];
+                double wind = winds[rowNum];
+                double power = powers[rowNum];
+                double pitch = pitches[rowNum];
+                _factors.Add(new Factor(wind, power, pitch));
             }
         }
 
@@ -66,7 +61,7 @@ namespace KNNPredictor
         private List<Factor> GetEuclideanFactors(Factor predictFactor)
         {
             List<Factor> euclideanFactors = new List<Factor>();
-            int dataLength = _factors.Length;
+            int dataLength = _factors.Count;
             for (int rowNum = 0; rowNum < dataLength; rowNum++)
             {
                 Factor curFactor = _factors[rowNum];
